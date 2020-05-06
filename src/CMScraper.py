@@ -48,6 +48,14 @@ class FindByLinkText():
         driver.get(baseUrl)
         web_iframe = driver.find_element_by_id("contentFrame");
         driver.switch_to.frame(web_iframe)
+        freq = 0.5 # seconds
+        timeout = 6
+        try:
+            myFrame = WebDriverWait(driver, timeout, freq, ignored_exceptions=[NoSuchElementException\
+                ]).until(EC.presence_of_element_located((By.XPATH, "//div[@class='sr_title']")))
+        except TimeoutException:
+            x = 1
+        
         title = driver.find_element_by_xpath("//div[@class='sr_title']").get_attribute("title").replace(" Normal Change -","")
         #=======================================================================
         # loginName = driver.find_element_by_xpath("//input[@name='userName']")
